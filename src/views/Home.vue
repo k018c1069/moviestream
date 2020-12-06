@@ -1,18 +1,40 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <video-player :options="videoOptions"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import VideoPlayer from '@/components/videoPlayer.vue'
+import 'video.js/dist/video-js.css'
 
 export default {
-  name: 'Home',
+  name: 'VideoExample',
   components: {
-    HelloWorld
+    VideoPlayer
+  },
+  data () {
+    return {
+      videoOptions: {
+        autoplay: true,
+        controls: true,
+        height: 600,
+        width: 1000,
+        sources: [
+          {
+            src: `http://${window.location.host}/${this.$route.params.key}.m3u8`,
+            type: 'application/x-mpegURL'
+          },
+          {
+            src: `rtmp://${document.domain}:1935/live/${this.$route.params.key}`,
+            type: 'rtmp/mp4'
+          }
+        ]
+      }
+    }
+  },
+  mounted () {
+    console.log(this.videoOptions.sources[0].src)
   }
 }
 </script>
