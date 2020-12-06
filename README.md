@@ -1,4 +1,4 @@
-# movestreamクライアント
+# movestreamクラaイアント
 
 ## Project setup
 ```
